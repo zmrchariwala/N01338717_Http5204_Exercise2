@@ -1,0 +1,25 @@
+﻿@model List<PetGrooming.Models.Species>
+
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of species</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Species Name</th>
+        <th colspan="2">Action</th>
+    </tr>
+    @{
+        foreach (var species in @Model)
+        {
+
+            <tr>
+                <td><a href="/Species/Show/@species.SpeciesID"><label>@species.Name</label></a></td>
+                <td><a href="/Species/Update/@species.SpeciesID" style="padding:10px; color:white; border-radius:20%; background-color:green;">Update</a></td>
+                <td><a href="/Species/Delete/@species.SpeciesID" style="padding:10px; color:white; border-radius:20%; background-color:red;">Delete</a></td>
+            </tr>
+        }
+    }
+</table>
