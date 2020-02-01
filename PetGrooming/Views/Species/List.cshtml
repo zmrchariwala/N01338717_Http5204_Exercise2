@@ -6,7 +6,8 @@
 }
 
 <h2>List of species</h2>
-<table class="table table-striped">
+<a href="/Species/Add/">Add new species</a>
+<table border="1" class="table table-striped">
     <tr>
         <th>Species Name</th>
         <th colspan="2">Action</th>
@@ -14,9 +15,10 @@
     @{
         foreach (var species in @Model)
         {
-
+            //Fetch all species from list function and display
             <tr>
                 <td><a href="/Species/Show/@species.SpeciesID"><label>@species.Name</label></a></td>
+                <!--Call Upate and delete function  with species id-->
                 <td><a href="/Species/Update/@species.SpeciesID" style="padding:10px; color:white; border-radius:20%; background-color:green;">Update</a></td>
                 <td><a href="/Species/Delete/@species.SpeciesID" style="padding:10px; color:white; border-radius:20%; background-color:red;">Delete</a></td>
             </tr>

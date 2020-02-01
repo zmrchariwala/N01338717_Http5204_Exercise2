@@ -44,12 +44,13 @@ namespace PetGrooming.Controllers
             string query = "insert into species(Name) values(@SpeciesName)";
             SqlParameter param = new SqlParameter("@SpeciesName",Name);
             db.Database.ExecuteSqlCommand(query, param);
-            return View();
+            return RedirectToAction("List");
         }
 
         public ActionResult Update(int id)
         {
-            //need information about a particular pet
+            //need information about a particular Species
+            //This function will return single species to update page 
             Species selectedpet = db.Species.SqlQuery("select * from Species where SpeciesID = @id", new SqlParameter("@id", id)).FirstOrDefault();
 
             return View(selectedpet);
@@ -58,6 +59,9 @@ namespace PetGrooming.Controllers
         [HttpPost]
         public ActionResult Update(int id,string sname)
         {
+            //When user click on update button
+            //All information will be passed here and 
+            //It will commi on database
             string query = "update Species set Name=@speciesname where SpeciesID=@id";
             SqlParameter[] sqlparams = new SqlParameter[2];
             sqlparams[0] = new SqlParameter("@speciesname", sname);
@@ -68,11 +72,13 @@ namespace PetGrooming.Controllers
 
         public ActionResult Show(int? id)
         {
+            //Id will be passed when user click on species name
+            //Particular species data will be pass to page
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            // Pet pet = db.Pets.Find(id); //EF 6 technique
+            //request for a particular species data in object and that object will be passed to show
             Species species = db.Species.SqlQuery("select * from Species where SpeciesID=@id", new SqlParameter("@id", id)).FirstOrDefault();
             if (species == null)
             {
@@ -82,6 +88,7 @@ namespace PetGrooming.Controllers
         }
         public ActionResult Delete(int? id)
         {
+            //Delete a particular species
             string query = "delete from Species where SpeciesID=@id";
             SqlParameter param = new SqlParameter("@id", id);
             db.Database.ExecuteSqlCommand(query, param);

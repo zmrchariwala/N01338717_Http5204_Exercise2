@@ -115,6 +115,7 @@ namespace PetGrooming.Controllers
         public ActionResult Update(int id)
         {
             //need information about a particular pet
+            //This data will be displayed on Update page where you need one pet details what we select
             Pet selectedpet = db.Pets.SqlQuery("select * from pets where petid = @id", new SqlParameter("@id",id)).FirstOrDefault();
 
             return View(selectedpet);
@@ -134,13 +135,15 @@ namespace PetGrooming.Controllers
             sqlparams[0] = new SqlParameter("@PetName", PetName);
             sqlparams[3] = new SqlParameter("@PetNotes", PetNotes);
             sqlparams[4] = new SqlParameter("@id", id);
+            //commit to database
             db.Database.ExecuteSqlCommand(query, sqlparams);
             return RedirectToAction("List");
         }
       
-
+        
         public ActionResult Delete(int? id)
         {
+            //Delete logic
             string query = "delete from pets where PetID=@id";
             SqlParameter param = new SqlParameter("@id",id);
             db.Database.ExecuteSqlCommand(query,param);
